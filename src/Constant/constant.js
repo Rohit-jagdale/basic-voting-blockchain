@@ -1,19 +1,6 @@
-const contractAddress = "0x211efC609Ae936F633cb457994C285ef7bEca41D";
+const contractAddress = "0xd7260B686a5E39DE2e53523e0f70361eCA57A196";
 
 const contractAbi = [
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			}
-		],
-		"name": "addCandidate",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
 	{
 		"inputs": [
 			{
@@ -31,14 +18,46 @@ const contractAbi = [
 		"type": "constructor"
 	},
 	{
+		"anonymous": false,
 		"inputs": [
 			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"name": "CandidateAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "voter",
+				"type": "address"
+			},
+			{
+				"indexed": true,
 				"internalType": "uint256",
-				"name": "_candidateIndex",
+				"name": "candidateIndex",
 				"type": "uint256"
 			}
 		],
-		"name": "vote",
+		"name": "VoteCasted",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"name": "addCandidate",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -69,7 +88,7 @@ const contractAbi = [
 	},
 	{
 		"inputs": [],
-		"name": "getAllVotesOfCandiates",
+		"name": "getAllVotesOfCandidates",
 		"outputs": [
 			{
 				"components": [
@@ -134,6 +153,32 @@ const contractAbi = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_candidateIndex",
+				"type": "uint256"
+			}
+		],
+		"name": "vote",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

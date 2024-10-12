@@ -97,3 +97,11 @@ input[type=number] {
   margin-bottom: 10px;
 }
 
+.scrollable-container {
+  height: 100vh; /* Set the height to the viewport height */
+  overflow-y: auto; /* Add vertical scroll */
+}
+
+.scrollable-content {
+  height: 200vh; /* Content height is larger than the container */
+}
