@@ -16,6 +16,8 @@ function App() {
   const [number, setNumber] = useState('');
   const [canVote, setCanVote] = useState(true);
   const [newCandidateName, setNewCandidateName] = useState('');
+  const [newCandidateParty, setNewCandidateParty] = useState(''); // New state for candidate party
+  const [newCandidateArea, setNewCandidateArea] = useState('');
 
   useEffect(() => {
     getCandidates();
@@ -62,7 +64,9 @@ function App() {
     const formattedCandidates = candidatesList.map((candidate, index) => ({
       index,
       name: candidate.name,
-      voteCount: candidate.voteCount.toNumber()
+      voteCount: candidate.voteCount.toNumber(),
+      party: candidate.party, // Assuming party is included in the candidate object
+      area: candidate.area // Assuming area is included in the candidate object
     }));
     setCandidates(formattedCandidates);
   }
@@ -130,7 +134,7 @@ function App() {
       const signer = provider.getSigner();
       const contractInstance = new ethers.Contract(contractAddress, contractAbi, signer);
 
-      const tx = await contractInstance.addCandidate(newCandidateName, { gasLimit: 500000 });
+      const tx = await contractInstance.addCandidate(newCandidateName, newCandidateParty, newCandidateArea, { gasLimit: 500000 });
       await tx.wait();
       getCandidates(); // Refresh the list of candidates
     } catch (err) {
@@ -163,6 +167,10 @@ function App() {
             addCandidate={addCandidate}
             handleCandidateNameChange={handleCandidateNameChange}
             newCandidateName={newCandidateName}
+            newCandidateParty={newCandidateParty} // Pass new party state
+            setNewCandidateParty={setNewCandidateParty} // Pass setter function for party
+            newCandidateArea={newCandidateArea} // Pass new area state
+            setNewCandidateArea={setNewCandidateArea} // Pass setter function for area
           />
         ) : (
           <Login connectWallet={connectToMetamask} />

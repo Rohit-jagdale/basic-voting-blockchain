@@ -1,11 +1,21 @@
-const contractAddress = "0xd7260B686a5E39DE2e53523e0f70361eCA57A196";
+const contractAddress = "0x5af8355a6fa951943c0EAa1F6BDf131357Db62B4";
 
-const contractAbi = [
+const contractAbi =[
 	{
 		"inputs": [
 			{
 				"internalType": "string[]",
 				"name": "_candidateNames",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_partyNames",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_areas",
 				"type": "string[]"
 			},
 			{
@@ -24,6 +34,18 @@ const contractAbi = [
 				"indexed": false,
 				"internalType": "string",
 				"name": "name",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "party",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "area",
 				"type": "string"
 			}
 		],
@@ -55,6 +77,16 @@ const contractAbi = [
 				"internalType": "string",
 				"name": "_name",
 				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_party",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_area",
+				"type": "string"
 			}
 		],
 		"name": "addCandidate",
@@ -78,6 +110,16 @@ const contractAbi = [
 				"type": "string"
 			},
 			{
+				"internalType": "string",
+				"name": "party",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "area",
+				"type": "string"
+			},
+			{
 				"internalType": "uint256",
 				"name": "voteCount",
 				"type": "uint256"
@@ -95,6 +137,16 @@ const contractAbi = [
 					{
 						"internalType": "string",
 						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "party",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "area",
 						"type": "string"
 					},
 					{

@@ -4,8 +4,6 @@ pragma solidity ^0.8.0;
 contract Voting {
     struct Candidate {
         string name;
-        string party;  // New attribute for party name
-        string area;       // New attribute for area
         uint256 voteCount;
     }
 
@@ -17,16 +15,12 @@ contract Voting {
     uint256 public votingEnd;
 
     event VoteCasted(address indexed voter, uint256 indexed candidateIndex);
-    event CandidateAdded(string name, string party, string area); // Updated event
+    event CandidateAdded(string name);
 
-    constructor(string[] memory _candidateNames, string[] memory _partyNames, string[] memory _areas, uint256 _durationInMinutes) {
-        require(_candidateNames.length == _partyNames.length && _partyNames.length == _areas.length, "All arrays must have the same length");
-
+    constructor(string[] memory _candidateNames, uint256 _durationInMinutes) {
         for (uint256 i = 0; i < _candidateNames.length; i++) {
             candidates.push(Candidate({
                 name: _candidateNames[i],
-                party: _partyNames[i],
-                area: _areas[i],
                 voteCount: 0
             }));
         }
@@ -40,14 +34,12 @@ contract Voting {
         _;
     }
 
-    function addCandidate(string memory _name, string memory _party, string memory _area) public onlyOwner {
+    function addCandidate(string memory _name) public onlyOwner {
         candidates.push(Candidate({
             name: _name,
-            party: _party,
-            area: _area,
             voteCount: 0
         }));
-        emit CandidateAdded(_name, _party, _area);  // Emit the event with additional details
+        emit CandidateAdded(_name);  // Emit the event
     }
 
     function vote(uint256 _candidateIndex) public {
