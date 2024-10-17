@@ -142,7 +142,7 @@ const Login = (props) => {
                     <p>Aadhaar Number: {citizenData.adharNumber}</p>
                     <p>Fingerprint: {citizenData.fingerprint}</p>
                     <p>Area: {citizenData.area}</p>
-                    <p>Wallet Address: {citizenData.walletAddress}</p>
+                    {/* <p>Wallet Address: {citizenData.walletAddress}</p> */}
                 </div>
             )}
 

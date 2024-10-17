@@ -152,6 +152,12 @@ function App() {
     return { name: winningCandidate, voteCount: winningVoteCount.toNumber() };
   }
 
+  function handleWalletAddressChange() {
+    setIsConnected(false); // Log the user out by setting isConnected to false
+    setAccount(null); // Clear the account info
+  }
+
+
   return (
     <div className="App">
       {votingStatus ? (
@@ -167,10 +173,11 @@ function App() {
             addCandidate={addCandidate}
             handleCandidateNameChange={handleCandidateNameChange}
             newCandidateName={newCandidateName}
-            newCandidateParty={newCandidateParty} // Pass new party state
-            setNewCandidateParty={setNewCandidateParty} // Pass setter function for party
-            newCandidateArea={newCandidateArea} // Pass new area state
-            setNewCandidateArea={setNewCandidateArea} // Pass setter function for area
+            newCandidateParty={newCandidateParty}
+            setNewCandidateParty={setNewCandidateParty}
+            newCandidateArea={newCandidateArea}
+            setNewCandidateArea={setNewCandidateArea}
+            onWalletAddressChange={handleWalletAddressChange} // Pass the new function here
           />
         ) : (
           <Login connectWallet={connectToMetamask} />
