@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { ethers } from 'ethers';
 import { contractAbi, contractAddress } from './Constant/constant';
 import Login from './Components/Login';
@@ -18,6 +19,8 @@ function App() {
   const [newCandidateName, setNewCandidateName] = useState('');
   const [newCandidateParty, setNewCandidateParty] = useState(''); // New state for candidate party
   const [newCandidateArea, setNewCandidateArea] = useState('');
+  const [error, setError] = useState("");
+  const [citizenData, setCitizenData] = useState(null);
 
   useEffect(() => {
     getCandidates();
@@ -34,6 +37,25 @@ function App() {
       }
     };
   }, []);
+
+
+// Function to fetch citizen data
+  const fetchCitizenData = async (aadhar) => {
+    if (aadhar === "") {
+      setError("Aadhaar Number is required.");
+      return;
+    }
+
+    try {
+      const response = await axios.get(`http://localhost:4000/user/${aadhar}`);
+      setCitizenData(response.data); // Set the retrieved citizen data
+      setError(""); // Clear error message
+    } catch (error) {
+      console.error('Error fetching citizen data:', error);
+      setError("User not found or server error.");
+      setCitizenData(null); // Clear citizen data if user not found
+    }
+  };
 
   async function vote() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -165,6 +187,8 @@ function App() {
           <Connected
             account={account}
             candidates={candidates}
+            fetchCitizenData={fetchCitizenData}
+            citizenData={citizenData}
             remainingTime={remainingTime}
             number={number}
             handleNumberChange={handleNumberChange}
@@ -180,7 +204,13 @@ function App() {
             onWalletAddressChange={handleWalletAddressChange} // Pass the new function here
           />
         ) : (
-          <Login connectWallet={connectToMetamask} />
+          <Login connectWallet={connectToMetamask}
+                      fetchCitizenData={fetchCitizenData}
+                      citizenData={citizenData} 
+                      error={error} 
+                setError={setError} 
+
+                      />
         )
       ) : (
         <Finished getResult={getResult} />
